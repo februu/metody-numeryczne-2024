@@ -4,40 +4,48 @@
 #include "horner.h"
 #include "interpolation.h"
 #include "gauss.h"
+#include "lu.h"
 
 using std::cout;
-using std::vector;
 
 int main()
 {
+    double **a = new double *[3];
+    for (int i = 0; i < 3; ++i)
+        a[i] = new double[3];
 
-    double **a = new double *[5];
-    for (int i = 0; i < 5; ++i)
+    double **b = new double *[3];
+    for (int i = 0; i < 3; ++i)
+        b[i] = new double[3];
+
+    double a_data[3][3] = {{60.0, 30.0, 20.0}, {30.0, 20.0, 15.0}, {20.0, 15.0, 12.0}};
+    double b_data[3][3] = {{3.0, 0.0, 1.0}, {0.0, -1.0, 3.0}, {1.0, 3.0, 0.0}};
+
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+            a[i][j] = a_data[i][j];
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+            b[i][j] = b_data[i][j];
+
+    doolittleLU(a, 3);
+    doolittleLU(b, 3);
+
+    for (int i = 0; i < 3; i++)
     {
-        a[i] = new double[5];
+        for (int j = 0; j < 3; j++)
+            cout << a[i][j] << "\t";
+        cout << "\n";
     }
 
-    double data[5][5] = {
-        {1.0, -3.0, 4.0, 6.8, 9.0},
-        {-3.0, 2.0, 4.6, 6.3, -10.0},
-        {2.0, -1.0, 2.8, -8.4, -5.0},
-        {-6.0, 2.0, 7.0, -0.5, -0.9},
-        {5.0, -2.0, -0.5, 12.0, -4.0}};
+    cout << "\n=======================\n\n";
 
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < 3; i++)
     {
-        for (int j = 0; j < 5; ++j)
-        {
-            a[i][j] = data[i][j];
-        }
+        for (int j = 0; j < 3; j++)
+            cout << b[i][j] << "\t";
+        cout << "\n";
     }
-
-    double b[] = {74.64, -40.26, -2.32, 12.6, -8.9};
-
-    double *gauss = gaussElimination(a, b, 5);
-
-    for (int i = 0; i < 5; i++)
-        cout << gauss[i] << "\n";
 
     return 0;
 }
