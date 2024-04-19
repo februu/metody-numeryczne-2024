@@ -6,6 +6,7 @@
 #include "gauss.h"
 #include "lu.h"
 #include "quad.h"
+#include "gaussQuad.h"
 
 using std::cout;
 
@@ -39,18 +40,16 @@ double fd(double x)
 // sorawdzuc dla 10 od -2 do -6
 int main()
 {
-    cout << "Funkcja 1:\n";
-    for (int i = 0; i > -5; i--)
-        cout << pow(10, (i - 2)) << "\t\t" << quad_t(fa, 0, 4.5, pow(10, (i - 2))) << "\t" << quad_s(fa, 0, 4.5, pow(10, (i - 2))) << "\n";
-    cout << "\nFunkcja 2:\n";
-    for (int i = 0; i > -5; i--)
-        cout << pow(10, (i - 2)) << "\t\t" << quad_t(fb, -2, 2, pow(10, (i - 2))) << "\t" << quad_s(fb, -2, 2, pow(10, (i - 2))) << "\n";
-    cout << "\nFunkcja 3:\n";
-    for (int i = 0; i > -5; i--)
-        cout << pow(10, (i - 2)) << "\t\t" << quad_t(fc, 0, 1, pow(10, (i - 2))) << "\t" << quad_s(fc, 0, 1, pow(10, (i - 2))) << "\n";
-    cout << "\nFunkcja 4:\n";
-    for (int i = 0; i > -5; i--)
-        cout << pow(10, (i - 2)) << "\t\t" << quad_t(fd, pow(10, -4), 1, pow(10, (i - 2))) << "\t" << quad_s(fd, pow(10, -4), 1, pow(10, (i - 2))) << "\n";
+    cout << "Test:\n";
+    cout << gaussQuad2(fa, 0, 4.5, 256) << "\n";
+    cout << gaussQuad3(fa, 0, 4.5, 256) << "\n";
+    cout << gaussQuad4(fa, 0, 4.5, 256) << "\n";
+    cout << gaussQuad5(fa, 0, 4.5, 256) << "\n";
 
+    double w1[] = {-2.0, 1.0, 2.0, 1.0};
+    double w2[] = {10.0, -1.0, 1.0, 2.0};
+
+    cout << horner(0, w1, 4) << "\n";
+    cout << gaussQuad5(w1, w2, -2, 2, 4, 256);
     return 0;
 }

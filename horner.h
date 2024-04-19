@@ -8,10 +8,12 @@ using std::vector;
 
 double horner(double x, const double *wsp, int size)
 {
-    if (size == 1)
-        return wsp[0];
-    else
-        return horner(x, wsp, size - 1) * x + wsp[size - 1];
+    double result = 0;
+    for (int i = size - 1; i >= 0; --i)
+    {
+        result = result * x + wsp[i];
+    }
+    return result;
 }
 
 double hornerNewton(double x, const double *a, const double *b, int size)
@@ -34,8 +36,6 @@ double hornerNewton(double x, const double *a, const double *b, int size)
     }
     return suma;
 }
-
-#include <vector>
 
 std::vector<double> standardPolynomial(const std::vector<double> &a, const std::vector<double> &b)
 {
